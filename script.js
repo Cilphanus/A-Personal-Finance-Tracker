@@ -85,14 +85,16 @@ function editTransaction(index) {
     };
 
     transactions[index] = updatedTransaction;
-    transactionItem.removeChild(editDiv);
+    transactionItem.parentNode.removeChild(transactionItem);
+    editDiv.parentNode.removeChild(editDiv);
+    updateBalance();
     displayTransactions();
   });
 
   const cancelButton = document.createElement('button');
   cancelButton.innerText = 'Cancel';
   cancelButton.addEventListener('click', () => {
-    transactionItem.removeChild(editDiv);
+    editDiv.parentNode.removeChild(editDiv);
   });
 
   editDiv.appendChild(typeLabel);
@@ -104,10 +106,9 @@ function editTransaction(index) {
   editDiv.appendChild(saveButton);
   editDiv.appendChild(cancelButton);
 
-  transactionItem.insertAdjacentElement('afterend', editDiv); // Insert the edit div after the transaction item
+  transactionItem.parentNode.insertBefore(editDiv, transactionItem.nextSibling);
 }
 
-// Rest of the code remains the same...
 
 // Function to update balance
 function updateBalance() {

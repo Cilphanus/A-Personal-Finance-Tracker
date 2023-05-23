@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e8e8e8;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  form {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  form select,
+  form input[type="text"],
+  form input[type="number"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+
+  }
+  
+  form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+  }
+  
+  form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* ...existing styles... */
+
+#transactions {
+    margin-bottom: 0px;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display:none;
+  }
+  
+  #transactions h2 {
+    margin-bottom: 10px;
+    color: #333;
+    
+  }
+  
+  .transaction-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .transaction-item span {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .transaction-item button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .transaction-item button:hover {
+    background-color: #d32f2f;
+  }
+  
+  #balance {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    margin-top: 0px;
+  }
+  
+  #balance h2 {
+    margin-bottom: 10px;
+  }
+  
+  #balance p {
+    font-size: 24px;
+  }
+
+.edit-transaction input,
+.edit-transaction label {
+  display: block;
+  margin: 10px auto;
+}
+
+.edit-transaction button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-transaction button:hover {
+    background-color: #d32f2f;
+  }  
+
+  .edit-transaction input, select{
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+
+  .edit-transaction label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  

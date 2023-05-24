@@ -5,33 +5,55 @@
   <link rel="stylesheet" type="text/css" href="styles2.css">
 </head>
 <body>
-  <h1>PERSONAL FINANCE TRACKER</h1>
+  <div class="container">
+    <h1>PERSONAL FINANCE TRACKER</h1>
 
-  <form id="transaction-form">
-    <label for="type">Type:</label>
-    <select id="type">
-      <option value="income">Income</option>
-      <option value="expense">Expense</option>
-    </select>
+    <form id="transaction-form">
+      <label for="type">Type:</label>
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
 
-    <label for="description">Description:</label>
-    <input type="text" id="description" required>
+      <label for="description">Description:</label>
+      <input type="text" id="description" required>
 
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount" required>
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" required>
 
-    <button type="submit">Add Transaction</button>
-  </form>
+      <button type="submit">Add Transaction</button>
+    </form>
 
-  <div id="transactions">
-    <h2>Transactions</h2>
-    <ul id="transaction-list"></ul>
-  </div>
+    <div id="transactions">
+      <h2>Transactions</h2>
+      <ul id="transaction-list"></ul>
+    </div>
 
-  <div id="balance">
-    <h2>Current Balance</h2>
-    <p id="balance-amount">0</p>
-  </div>
+    <div id="balance">
+      <h2>Current Balance</h2>
+      <p id="balance-amount">0</p>
+    </div>
+
+    <div id="progress-tracker">
+      <h2>Progress Tracker</h2>
+      <form id="goal-form">
+        <label for="goal-amount">Set Goal Amount:</label>
+        <input type="number" id="goal-amount" step="0.01" placeholder="Enter goal amount" required>
+        <button type="submit">Set Goal</button>
+      </form>
+      <div id="goal-container" style="display: none;">
+        <p>Goal Amount: <span id="goal-display"></span></p>
+      </div>
+      <div id="progress-container">
+        <div class="progress-bar">
+          <div id="progress"></div>
+        </div>
+        <span id="progress-percentage" class="progress-percentage">0%</span>
+      </div>
+    </div>    
+    <div id="goal-achieved-message" style="display: none;">
+      <p>Congratulations! You have achieved your goal.</p>
+    </div>      
 
   <script src="script.js"></script>
 </body>

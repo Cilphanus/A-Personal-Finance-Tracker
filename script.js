@@ -1,7 +1,8 @@
 // Track transactions
 let transactions = [];
+let goalAmount = 0;
 
-// Function to display transactions
+// Function to display transactions and update progress
 function displayTransactions() {
   const transactionList = document.getElementById('transaction-list');
   transactionList.innerHTML = '';
@@ -37,6 +38,9 @@ function displayTransactions() {
   // Show/hide #transactions based on transaction count
   const transactionsSection = document.getElementById('transactions');
   transactionsSection.style.display = transactions.length ? 'block' : 'none';
+
+  // Update progress
+  updateProgress();
 }
 
 // Function to edit a transaction
@@ -109,8 +113,7 @@ function editTransaction(index) {
   transactionItem.parentNode.insertBefore(editDiv, transactionItem.nextSibling);
 }
 
-
-// Function to update balance
+// Function to update balance and progress
 function updateBalance() {
   const balanceAmount = document.getElementById('balance-amount');
   const balance = transactions.reduce((total, transaction) => {
@@ -122,7 +125,32 @@ function updateBalance() {
   }, 0);
 
   balanceAmount.textContent = balance.toFixed(2);
+  updateProgress();
 }
+
+// Function to update progress
+function updateProgress() {
+  const progress = document.getElementById('progress');
+  const progressPercentage = document.getElementById('progress-percentage');
+  const goalContainer = document.getElementById('goal-container');
+  const goalAchievedMessage = document.getElementById('goal-achieved-message');
+
+  const balance = parseFloat(document.getElementById('balance-amount').textContent);
+  const percentage = (balance / goalAmount) * 100;
+  const clampedPercentage = Math.min(100, Math.max(0, percentage));
+
+  progress.style.width = `${clampedPercentage}%`;
+  progressPercentage.textContent = `${clampedPercentage.toFixed(2)}%`;
+
+  if (clampedPercentage >= 100) {
+    goalContainer.style.display = 'none';
+    goalAchievedMessage.style.display = 'block';
+  } else {
+    goalContainer.style.display = 'block';
+    goalAchievedMessage.style.display = 'none';
+  }
+}
+
 
 // Function to add a new transaction
 function addTransaction(e) {
@@ -156,7 +184,27 @@ function deleteTransaction(index) {
   updateBalance();
 }
 
-// Add event listener to the transaction form
+// Function to set the goal amount
+function setGoalAmount(e) {
+  e.preventDefault();
+
+  const goalInput = document.getElementById('goal-amount');
+  goalAmount = parseFloat(goalInput.value);
+
+  goalInput.value = '';
+
+  // Display the goal amount
+  const goalDisplay = document.getElementById('goal-display');
+  goalDisplay.textContent = goalAmount.toFixed(2);
+  const goalContainer = document.getElementById('goal-container');
+  goalContainer.style.display = 'block';
+
+  updateProgress();
+}
+
+// Add event listeners
 const transactionForm = document.getElementById('transaction-form');
 transactionForm.addEventListener('submit', addTransaction);
 
+const goalForm = document.getElementById('goal-form');
+goalForm.addEventListener('submit', setGoalAmount);

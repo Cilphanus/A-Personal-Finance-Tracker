@@ -11,15 +11,19 @@
     <form id="transaction-form">
       <label for="type">Type:</label>
       <select id="type">
+        <option disabled selected value="">Select type</option>
         <option value="income">Income</option>
         <option value="expense">Expense</option>
       </select>
 
       <label for="description">Description:</label>
-      <input type="text" id="description" required>
+      <input type="text" id="description" required placeholder="Enter description">
 
       <label for="amount">Amount:</label>
-      <input type="number" id="amount" required>
+      <input type="number" id="amount" required placeholder="Enter amount">
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" required>
 
       <button type="submit">Add Transaction</button>
     </form>
@@ -48,7 +52,7 @@
         <div class="progress-bar">
           <div id="progress"></div>
         </div>
-        <span id="progress-percentage" class="progress-percentage">0%</span>
+        <span id="progress-percentage" class="progress-percentage"></span>
       </div>
     </div>    
     <div id="goal-achieved-message" style="display: none;">

@@ -8,13 +8,13 @@ function displayTransactions() {
   transactionList.innerHTML = '';
 
   transactions.forEach((transaction, index) => {
-    const { id, type, description, amount } = transaction;
+    const { id, type, description, amount, date } = transaction;
 
     const listItem = document.createElement('li');
     listItem.classList.add('transaction-item');
 
     const transactionText = document.createElement('div');
-    transactionText.innerHTML = `<span>${type.charAt(0).toUpperCase() + type.slice(1)}</span> - ${description} - ${amount}`;
+    transactionText.innerHTML = `<span>${type.charAt(0).toUpperCase() + type.slice(1)}</span>- ${description} - ${amount} - ${formatDate(date)}`;
 
     const editButton = document.createElement('button');
     editButton.innerText = 'Edit';
@@ -41,6 +41,11 @@ function displayTransactions() {
 
   // Update progress
   updateProgress();
+}
+// Function to format the date as dd/mm/yyyy
+function formatDate(date) {
+  const [month, day, year] = new Date(date).toLocaleDateString().split('/');
+  return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
 }
 
 // Function to edit a transaction
@@ -78,6 +83,12 @@ function editTransaction(index) {
   amountInput.step = '0.01';
   amountInput.value = transaction.amount;
 
+  const dateLabel = document.createElement('label');
+  dateLabel.innerText = 'Date:';
+  const dateInput = document.createElement('input');
+  dateInput.type = 'date';
+  dateInput.value = transaction.date;
+
   const saveButton = document.createElement('button');
   saveButton.innerText = 'Save';
   saveButton.addEventListener('click', () => {
@@ -86,6 +97,7 @@ function editTransaction(index) {
       type: typeSelect.value,
       description: descriptionInput.value,
       amount: parseFloat(amountInput.value),
+      date: dateInput.value
     };
 
     transactions[index] = updatedTransaction;
@@ -107,6 +119,8 @@ function editTransaction(index) {
   editDiv.appendChild(descriptionInput);
   editDiv.appendChild(amountLabel);
   editDiv.appendChild(amountInput);
+  editDiv.appendChild(dateLabel);
+  editDiv.appendChild(dateInput);
   editDiv.appendChild(saveButton);
   editDiv.appendChild(cancelButton);
 
@@ -134,19 +148,25 @@ function updateProgress() {
   const progressPercentage = document.getElementById('progress-percentage');
   const goalContainer = document.getElementById('goal-container');
   const goalAchievedMessage = document.getElementById('goal-achieved-message');
-
-  const balance = parseFloat(document.getElementById('balance-amount').textContent);
-  const percentage = (balance / goalAmount) * 100;
-  const clampedPercentage = Math.min(100, Math.max(0, percentage));
-
-  progress.style.width = `${clampedPercentage}%`;
-  progressPercentage.textContent = `${clampedPercentage.toFixed(2)}%`;
-
-  if (clampedPercentage >= 100) {
-    goalContainer.style.display = 'none';
-    goalAchievedMessage.style.display = 'block';
-  } else {
-    goalContainer.style.display = 'block';
+  if(goalAmount>0){
+    goalContainer.display='block';
+    const balance = parseFloat(document.getElementById('balance-amount').textContent);
+    const percentage = (balance / goalAmount) * 100;
+    const clampedPercentage = Math.min(100, Math.max(0, percentage));
+  
+    progress.style.width = `${clampedPercentage}%`;
+    progressPercentage.textContent = `${clampedPercentage.toFixed(2)}%`;
+  
+    if (clampedPercentage >= 100) {
+      goalAchievedMessage.style.display = 'block';
+    } else {
+      goalAchievedMessage.style.display = 'none';
+    }
+  }
+  else{
+    goalContainer.display='none';
+    progress.style.width= '0%';
+    progressPercentage.textContent = '';
     goalAchievedMessage.style.display = 'none';
   }
 }
@@ -159,11 +179,13 @@ function addTransaction(e) {
   const type = document.getElementById('type').value;
   const description = document.getElementById('description').value;
   const amount = document.getElementById('amount').value;
+  const date = document.getElementById('date').value;
 
   const newTransaction = {
     type: type,
     description: description,
-    amount: amount
+    amount: amount,
+    date: date
   };
 
   transactions.push(newTransaction);
@@ -174,12 +196,13 @@ function addTransaction(e) {
   // Clear input fields
   document.getElementById('description').value = '';
   document.getElementById('amount').value = '';
+  document.getElementById('date').value = '';
 }
+
 
 // Function to delete a transaction
 function deleteTransaction(index) {
   transactions.splice(index, 1);
-
   displayTransactions();
   updateBalance();
 }

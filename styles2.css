@@ -32,7 +32,8 @@ body {
   
   form select,
   form input[type="text"],
-  form input[type="number"] {
+  form input[type="number"],
+  form input[type="date"] {
     width: 300px;
     padding: 10px;
     border: 1px solid #ccc;

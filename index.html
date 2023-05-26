@@ -8,6 +8,11 @@
   <div class="container">
     <h1>PERSONAL FINANCE TRACKER</h1>
 
+    <div id="reminder-message">
+      <p id="reminder-text"></p>
+      <button id="reminder-close-button">&times;</button>
+    </div>    
+
     <form id="transaction-form">
       <label for="type">Type:</label>
       <select id="type">
@@ -58,6 +63,25 @@
     <div id="goal-achieved-message" style="display: none;">
       <p>Congratulations! You have achieved your goal.</p>
     </div>      
+
+    <section id="bill-reminders">
+      <h2 id="bill-reminders-heading">Bill Reminders</h2>
+      <ul id="bill-reminder-list"></ul>
+    </section>
+    
+    <section id="bill-reminder-form">
+      <h3>Add Bill Reminder</h3>
+      <form id="bill-reminder-form">
+        <label for="bill-name">Bill Name:</label>
+        <input type="text" id="bill-name" required>
+    
+        <label for="due-date">Due Date:</label>
+        <input type="date" id="due-date" required>
+    
+        <button type="submit">Add Reminder</button>
+      </form>
+    </section>
+    
 
   <script src="script.js"></script>
 </body>

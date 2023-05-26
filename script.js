@@ -1,6 +1,7 @@
 // Track transactions
 let transactions = [];
 let goalAmount = 0;
+let billReminders = [];
 
 // Function to display transactions and update progress
 function displayTransactions() {
@@ -42,6 +43,7 @@ function displayTransactions() {
   // Update progress
   updateProgress();
 }
+
 // Function to format the date as dd/mm/yyyy
 function formatDate(date) {
   const [month, day, year] = new Date(date).toLocaleDateString().split('/');
@@ -148,29 +150,27 @@ function updateProgress() {
   const progressPercentage = document.getElementById('progress-percentage');
   const goalContainer = document.getElementById('goal-container');
   const goalAchievedMessage = document.getElementById('goal-achieved-message');
-  if(goalAmount>0){
-    goalContainer.display='block';
+  if (goalAmount > 0) {
+    goalContainer.style.display = 'block';
     const balance = parseFloat(document.getElementById('balance-amount').textContent);
     const percentage = (balance / goalAmount) * 100;
     const clampedPercentage = Math.min(100, Math.max(0, percentage));
-  
+
     progress.style.width = `${clampedPercentage}%`;
     progressPercentage.textContent = `${clampedPercentage.toFixed(2)}%`;
-  
+
     if (clampedPercentage >= 100) {
       goalAchievedMessage.style.display = 'block';
     } else {
       goalAchievedMessage.style.display = 'none';
     }
-  }
-  else{
-    goalContainer.display='none';
-    progress.style.width= '0%';
+  } else {
+    goalContainer.style.display = 'none';
+    progress.style.width = '0%';
     progressPercentage.textContent = '';
     goalAchievedMessage.style.display = 'none';
   }
 }
-
 
 // Function to add a new transaction
 function addTransaction(e) {
@@ -199,7 +199,6 @@ function addTransaction(e) {
   document.getElementById('date').value = '';
 }
 
-
 // Function to delete a transaction
 function deleteTransaction(index) {
   transactions.splice(index, 1);
@@ -225,9 +224,124 @@ function setGoalAmount(e) {
   updateProgress();
 }
 
-// Add event listeners
-const transactionForm = document.getElementById('transaction-form');
-transactionForm.addEventListener('submit', addTransaction);
+// Function to display bill reminders
+function displayBillReminders() {
+  const billReminderList = document.getElementById('bill-reminder-list');
+  billReminderList.innerHTML = '';
+  const billRemindersHeading = document.getElementById('bill-reminders-heading');
+  if (billReminders.length) {
+    billRemindersHeading.style.display = 'block';
+  } else {
+    billRemindersHeading.style.display = 'none';
+  }
+  billReminders.forEach((billReminder, index) => {
+    const { id, billName, dueDate } = billReminder;
 
-const goalForm = document.getElementById('goal-form');
-goalForm.addEventListener('submit', setGoalAmount);
+    const listItem = document.createElement('li');
+    listItem.classList.add('bill-reminder-item');
+
+    const reminderText = document.createElement('span');
+    reminderText.innerHTML = `<strong>${billName}</strong> - Due on ${formatDate(dueDate)}`;
+
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete';
+    deleteButton.addEventListener('click', () => {
+      deleteBillReminder(index);
+    });
+
+    listItem.appendChild(reminderText);
+    listItem.appendChild(deleteButton);
+
+    billReminderList.appendChild(listItem);
+  });
+
+  // Check due dates and display daily reminder
+  checkDueDates();
+
+  // Remove expired reminders
+  removeExpiredReminders();
+}
+
+// Function to check due dates and display daily reminder
+function checkDueDates() {
+  const currentDate = new Date();
+  const reminderMessages = [];
+
+  billReminders.forEach((billReminder) => {
+    const dueDate = new Date(billReminder.dueDate);
+    const timeDiff = dueDate.getTime() - currentDate.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if (daysDiff <= 5 && daysDiff > 0) {
+      const reminderMessage = `Reminder: Pay ${billReminder.billName} bill in ${daysDiff} day(s)`;
+      reminderMessages.push(reminderMessage);
+    }
+  });
+
+  if (reminderMessages.length > 0) {
+    const combinedReminderMessage = reminderMessages.join('<br>');
+    displayReminderMessage(combinedReminderMessage);
+  }
+}
+
+
+// Function to remove expired reminders
+function removeExpiredReminders() {
+  const currentDate = new Date();
+
+  billReminders = billReminders.filter((billReminder) => {
+    const dueDate = new Date(billReminder.dueDate);
+    return dueDate >= currentDate;
+  });
+
+  displayBillReminders();
+}
+
+// Display reminder message
+function displayReminderMessage(message) {
+  const reminderText = document.getElementById('reminder-text');
+  const reminderMessage = document.getElementById('reminder-message');
+  reminderText.innerHTML = message;
+  reminderMessage.style.display = 'block';
+}
+
+// Close reminder message
+function closeReminderMessage() {
+  const reminderMessage = document.getElementById('reminder-message');
+  reminderMessage.style.display = 'none';
+}
+
+// Add event listener to close button
+const reminderCloseButton = document.getElementById('reminder-close-button');
+reminderCloseButton.addEventListener('click', closeReminderMessage);
+
+
+// Function to add a new bill reminder
+function addBillReminder(e) {
+  e.preventDefault();
+
+  const billName = document.getElementById('bill-name').value;
+  const dueDate = document.getElementById('due-date').value;
+
+  const newBillReminder = {
+    billName: billName,
+    dueDate: dueDate
+  };
+
+  billReminders.push(newBillReminder);
+
+  displayBillReminders();
+
+  // Clear input fields
+  document.getElementById('bill-name').value = '';
+  document.getElementById('due-date').value = '';
+}
+
+// Function to delete a bill reminder
+function deleteBillReminder(index) {
+  billReminders.splice(index, 1);
+  displayBillReminders();
+}
+
+const billReminderForm = document.getElementById('bill-reminder-form');
+billReminderForm.addEventListener('submit', addBillReminder);

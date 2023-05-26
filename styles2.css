@@ -59,8 +59,6 @@ body {
   form button:hover {
     background-color: #45a049;
   }
-  
-  /* ...existing styles... */
 
 #transactions {
     margin-bottom: 0px;
@@ -160,8 +158,6 @@ body {
     font-weight: bold;
   }
 
-  /* ...existing styles... */
-
 #progress-tracker {
   margin-top: 30px;
   padding: 20px;
@@ -219,4 +215,106 @@ body {
   text-align: center;
   border-radius: 4px;
   margin-top: 20px;
+}
+
+/* Bill Reminders Section */
+#bill-reminders {
+  margin-top: 20px;
+}
+
+#bill-reminders h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#bill-reminder-list {
+  list-style: none;
+  padding: 0;
+}
+
+.bill-reminder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.bill-reminder-item span {
+  font-weight: bold;
+}
+
+.bill-reminder-item button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Bill Reminder Form */
+#bill-reminder-form {
+  margin-top: 20px;
+}
+
+#bill-reminder-form h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#bill-reminder-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#bill-reminder-form input[type="text"],
+#bill-reminder-form input[type="date"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+#bill-reminder-form button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#reminder-message {
+  background-color: #ffcccc;
+  color: #ff0000;
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: none;
+  position: relative;
+}
+
+#reminder-message p {
+  margin: 0;
+}
+
+#reminder-message button {
+  background-color: transparent;
+  border: none;
+  color: #ff0000;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 5px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+#bill-reminders-heading{
+  display:none;
 }

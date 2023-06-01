@@ -12,12 +12,9 @@ The Personal Finance Tracker is a web application that helps you track your inco
 - Responsive design for mobile and desktop devices.
 
 ## Technologies Used
-
-- HTML
-- CSS
-- JavaScript
-- Bootstrap (optional)
-- [Chart.js](https://www.chartjs.org/) (optional)
+- Frontend: HTML, CSS, JavaScript
+- Backend: Python, Flask
+- Database: SQLite
 
 ## Getting Started
 

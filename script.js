@@ -206,6 +206,8 @@ function addTransaction(e) {
   };
 
   transactions.push(newTransaction);
+  updateBalance();
+  displayTransactions();
   
   // Make API request to categorise the transactions 
   fetch('/api/categorized-transactions',{
@@ -239,7 +241,7 @@ function addTransaction(e) {
 function deleteTransaction(index) {
   transactions.splice(index, 1);
   displayTransactions();
-  updateBalance();f
+  updateBalance();
 }
 
 

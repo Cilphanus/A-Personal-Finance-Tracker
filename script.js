@@ -382,6 +382,10 @@ function deleteBillReminder(index) {
   displayBillReminders();
 }
 
+const transactionForm = document.getElementById('transaction-form');
+transactionForm.addEventListener('submit', addTransaction);
+const goalForm = document.getElementById('goal-form');
+goalForm.addEventListener('submit', setGoalAmount);
 const billReminderForm = document.getElementById('bill-reminder-form');
 billReminderForm.addEventListener('submit', addBillReminder);
 function trainAndPredict() {

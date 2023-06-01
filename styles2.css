@@ -217,6 +217,34 @@ body {
   margin-top: 20px;
 }
 
+
+#monthly-summary {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+  }
+  
+  #monthly-summary h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  #monthly-summary ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #monthly-summary li {
+    margin-bottom: 5px;
+  }
+  
+  #monthly-summary-chart {
+    margin-top: 20px;
+  }
+
+  
 /* Bill Reminders Section */
 #bill-reminders {
   margin-top: 20px;
@@ -287,15 +315,7 @@ body {
   padding: 5px 10px;
   cursor: pointer;
 }
-#summary-chart {
-  width: 600px;
-  height: 400px;
-  margin-bottom: 20px;
-}
 
-#monthly-summary {
-  margin-top: 20px;
-}
 
 #reminder-message {
   background-color: #ffcccc;
@@ -327,3 +347,5 @@ body {
 #bill-reminders-heading{
   display:none;
 }
+
+

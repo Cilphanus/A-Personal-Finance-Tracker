@@ -287,6 +287,15 @@ body {
   padding: 5px 10px;
   cursor: pointer;
 }
+#summary-chart {
+  width: 600px;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+#monthly-summary {
+  margin-top: 20px;
+}
 
 #reminder-message {
   background-color: #ffcccc;

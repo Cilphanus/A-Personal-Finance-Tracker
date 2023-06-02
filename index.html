@@ -2,19 +2,23 @@
 <html>
 <head>
     <title>Personal Finance Tracker</title>
-    <link rel="stylesheet" type="text/css" href="styles2.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+     <link rel="stylesheet" type="text/css" href="styles2.css">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>PERSONAL FINANCE TRACKER</h1>
+    <div class="container">
+        <h1>PERSONAL FINANCE TRACKER</h1>
+        
 
-    <section id="monthly-summary">
-        <h2>Monthly Summary</h2>
-        <div id="chart-container"></div>
-      </section>
-   
+        <section id="monthly-summary">
+            <h2>Monthly Summary</h2>
+            
+        </section>
+        <canvas id="monthly-summary-chart">
+   <div id="chart-container"></div></canvas>
 
     <div id="reminder-message">
       <p id="reminder-text"></p>

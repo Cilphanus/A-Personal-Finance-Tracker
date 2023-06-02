@@ -60,6 +60,18 @@ body {
     background-color: #45a049;
   }
 
+  #chart-container {
+    width: 400px; /* Adjust the width as needed */
+    height: 300px; /* Adjust the height as needed */
+    margin: 0 auto; /* Center the chart container horizontally */
+  }
+
+  /* Optional styles for the chart canvas */
+  canvas#monthly-summary-chart {
+    width: 100%;
+    height: 100%;
+  }
+
 #transactions {
     margin-bottom: 0px;
     text-align: center;
@@ -234,6 +246,7 @@ body {
   #monthly-summary ul {
     list-style-type: none;
     padding: 0;
+
   }
   
   #monthly-summary li {

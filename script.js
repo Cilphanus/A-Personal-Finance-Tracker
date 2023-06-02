@@ -196,6 +196,24 @@ function addTransaction(e) {
   transactions.push(newTransaction);
   updateBalance();
   displayTransactions();
+  
+  fetch("http://127.0.0.1:5000/api/monthly-summary", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(transactions), // Replace with your transaction data
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Display the monthly summary data
+    //   print(data);
+    console.log(data);
+      displayMonthlySummary(data);
+    
+    })
+    .catch((error) => console.error(error));
+
 
   // Make API request to categorise the transactions
 
@@ -237,19 +255,21 @@ function displayMonthlySummary(data) {
       <ul>
         ${categorizedTransactions
           .map(
-            (item) => `<li>${item.Category}: $${item.Transaction_Amount}</li>`
+            (item) => `<li>${item.Category}: $${item.amount}</li>`
           )
           .join("")}
       </ul>`;
-  const categorizedTransactionsDiv = document.getElementById(
-    "categorized-transactions"
-  );
-  categorizedTransactionsDiv.innerHTML = categorizedTransactionsHtml;
+//   const categorizedTransactionsDiv = document.getElementById(
+    //"categorized-transactions"
+  //);
+  console.log(categorizedTransactionsHtml)
+//   categorizedTransactionsDiv.innerHTML = categorizedTransactionsHtml;
+  console.log("hello2")
 
   // Display monthly summary as a bar chart
   const monthlySummary = data.monthly_summary;
   const labels = monthlySummary.map((item) => `${item.Month}/${item.Year}`);
-  const amounts = monthlySummary.map((item) => item.Transaction_Amount);
+  const amounts = monthlySummary.map((item) => item.amount);
 
   createMonthlySummaryChart(labels, amounts);
 }
@@ -262,6 +282,7 @@ function createMonthlySummaryChart(labels, amounts) {
   chartContainer.appendChild(canvas);
   console.log("createMonthlySummaryChart called");
   const ctx = canvas.getContext("2d");
+  console.log("hi1");
   new Chart(ctx, {
     type: "bar",
     data: {
@@ -286,24 +307,10 @@ function createMonthlySummaryChart(labels, amounts) {
       },
     },
   });
+  console.log("hi2");
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Fetch monthly summary data from the API
-  fetch("/api/monthly-summary", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(summary_data), // Replace with your transaction data
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Display the monthly summary data
-      displayMonthlySummary(data);
-    })
-    .catch((error) => console.error(error));
-});
+
 // Function to display bill reminders
 function displayBillReminders() {
   const billReminderList = document.getElementById("bill-reminder-list");
@@ -427,6 +434,22 @@ function deleteBillReminder(index) {
 
 const transactionForm = document.getElementById("transaction-form");
 transactionForm.addEventListener("submit", addTransaction);
+// transactionForm.addEventListener("submit", function () {
+//     // Fetch monthly summary data from the API
+//     fetch("/api/monthly-summary", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(transactions), // Replace with your transaction data
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         // Display the monthly summary data
+//         displayMonthlySummary(data);
+//       })
+//       .catch((error) => console.error(error));
+//   });
 const goalForm = document.getElementById("goal-form");
 goalForm.addEventListener("submit", setGoalAmount);
 const billReminderForm = document.getElementById("bill-reminder-form");

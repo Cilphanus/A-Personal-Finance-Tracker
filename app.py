@@ -7,40 +7,40 @@ app = Flask(__name__)
 def categorize_transactions(df):
     # Create a mapping of transaction descriptions to categories
     description_mapping = {
-         "groceries": "Food",
-  "restaurant": "Food",
-  "coffee": "Food",
-  "supermarket": "Food",
-  "clothes": "Clothing",
-  "shoes": "Clothing",
-  "accessories": "Clothing",
-  "utilities": "Utilities",
-  "electricity bill": "Utilities",
-  "water bill": "Utilities",
-  "gas bill": "Utilities",
-  "rent": "Housing",
-  "mortgage": "Housing",
-  "insurance": "Insurance",
-  "healthcare": "Insurance",
-  "travel": "Travel",
-  "transportation": "Transportation",
-  "gasoline": "Transportation",
-  "car maintenance": "Transportation",
-  "entertainment": "Entertainment",
-  "movies": "Entertainment",
-  "concert": "Entertainment",
-  "subscriptions": "Subscriptions",
-  "internet": "Subscriptions",
-  "streaming services": "Subscriptions",
-  "gym": "Fitness",
-  "sports": "Fitness",
-  "education": "Education",
-  "books": "Education",
-  "tuition": "Education",
-  "donations": "Charity",
-  "gifts": "Gifts",
-  "shopping": "Shopping",
-  "miscellaneous": "Miscellaneous"
+        "groceries": "Food",
+        "restaurant": "Food",
+        "coffee": "Food",
+        "supermarket": "Food",
+        "clothes": "Clothing",
+        "shoes": "Clothing",
+        "accessories": "Clothing",
+        "utilities": "Utilities",
+        "electricity bill": "Utilities",
+        "water bill": "Utilities",
+        "gas bill": "Utilities",
+        "rent": "Housing",
+        "mortgage": "Housing",
+        "insurance": "Insurance",
+        "healthcare": "Insurance",
+        "travel": "Travel",
+        "transportation": "Transportation",
+        "gasoline": "Transportation",
+        "car maintenance": "Transportation",
+        "entertainment": "Entertainment",
+        "movies": "Entertainment",
+        "concert": "Entertainment",
+        "subscriptions": "Subscriptions",
+        "internet": "Subscriptions",
+        "streaming services": "Subscriptions",
+        "gym": "Fitness",
+        "sports": "Fitness",
+        "education": "Education",
+        "books": "Education",
+        "tuition": "Education",
+        "donations": "Charity",
+        "gifts": "Gifts",
+        "shopping": "Shopping",
+        "miscellaneous": "Miscellaneous"
     }
 
     df['Category'] = df['Transaction_Description'].map(description_mapping)
@@ -62,7 +62,6 @@ def calculate_monthly_summary(df):
 
     return monthly_summary
 
-
 # Endpoint for training and making predictions
 @app.route('/')
 def home():
@@ -76,16 +75,15 @@ def generate_monthly_summary():
     df = pd.DataFrame(data)
 
     categorized_transactions = categorize_transactions(df)
-    monthly_summary = calculate_monthly_summary(df)
+    monthly_summary = calculate_monthly_summary(df)  # Pass df instead of categorized_transactions
     
     summary_data = {
         'categorized_transactions': categorized_transactions,
         'monthly_summary': monthly_summary
     }
     
-    # Return the monthly summary as a JSON response
+    # Return the categorized transactions and monthly summary as a JSON response
     return jsonify(summary_data)
 
-
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)

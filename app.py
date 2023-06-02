@@ -1,8 +1,10 @@
 import json
 from flask import Flask, render_template, request, jsonify
 import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 def categorize_transactions(df):
     # Create a mapping of transaction descriptions to categories
@@ -43,19 +45,22 @@ def categorize_transactions(df):
         "miscellaneous": "Miscellaneous"
     }
 
-    df['Category'] = df['Transaction_Description'].map(description_mapping)
-    categorized_transactions = df.groupby('Category')['Transaction_Amount'].sum().reset_index()
+    df['Category'] = df['description'].map(description_mapping)
+    print(df)
+    categorized_transactions = df.groupby('Category')['amount'].sum().reset_index()
+    print(categorized_transactions)
     categorized_transactions = categorized_transactions.to_dict(orient='records')
     return categorized_transactions
 
 def calculate_monthly_summary(df):
     # Extract the month and year from the transaction date
-    df['Transaction_Date'] = pd.to_datetime(df['Transaction_Date'])
-    df['Month'] = df['Transaction_Date'].dt.month
-    df['Year'] = df['Transaction_Date'].dt.year
+    df['date'] = pd.to_datetime(df['date'])
+    df['Month'] = df['date'].dt.month
+    df['Year'] = df['date'].dt.year
 
     # Group the transactions by month, year, and category, and calculate the total amount
-    monthly_summary = df.groupby(['Year', 'Month', 'Category'])['Transaction_Amount'].sum().reset_index()
+    monthly_summary = df.groupby(['Year', 'Month', 'Category'])['amount'].sum().reset_index()
+    print(monthly_summary)
 
     # Convert the monthly summary to a list of dictionaries
     monthly_summary = monthly_summary.to_dict(orient='records')
@@ -69,10 +74,13 @@ def home():
 
 @app.route('/api/monthly-summary', methods=['POST'])
 def generate_monthly_summary():
+    print("hello")
     data = request.json
     
     # Load the dataset
     df = pd.DataFrame(data)
+    print(data)
+    print(df)
 
     categorized_transactions = categorize_transactions(df)
     monthly_summary = calculate_monthly_summary(df)  # Pass df instead of categorized_transactions
@@ -81,9 +89,11 @@ def generate_monthly_summary():
         'categorized_transactions': categorized_transactions,
         'monthly_summary': monthly_summary
     }
+    print(summary_data)
     
     # Return the categorized transactions and monthly summary as a JSON response
     return jsonify(summary_data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

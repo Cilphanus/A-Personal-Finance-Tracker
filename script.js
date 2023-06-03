@@ -268,7 +268,7 @@ function displayMonthlySummary(data) {
 
   // Display monthly summary as a bar chart
   const monthlySummary = data.monthly_summary;
-  const labels = monthlySummary.map((item) => `${item.Month}/${item.Year}`);
+  const labels = monthlySummary.map((item) => `${item.Category}/${item.amount}`);
   const amounts = monthlySummary.map((item) => item.amount);
 
   createMonthlySummaryChart(labels, amounts);

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify
 import pandas as pd
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(_name_)
 CORS(app)
 
 def categorize_transactions(df):
@@ -59,7 +59,7 @@ def calculate_monthly_summary(df):
     df['Year'] = df['date'].dt.year
 
     # Group the transactions by month, year, and category, and calculate the total amount
-    monthly_summary = df.groupby(['Year', 'Month', 'Category'])['amount'].sum().reset_index()
+    monthly_summary = df.groupby(['Category'])['amount'].sum().reset_index()
     print(monthly_summary)
 
     # Convert the monthly summary to a list of dictionaries
@@ -95,5 +95,5 @@ def generate_monthly_summary():
     return jsonify(summary_data)
 
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(debug=True)

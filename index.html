@@ -4,19 +4,12 @@
     <title>Personal Finance Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
      <link rel="stylesheet" type="text/css" href="styles2.css">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
     <div class="container">
         <h1>PERSONAL FINANCE TRACKER</h1>
-        <section id="monthly-summary">
-            <h2>Monthly Summary</h2>
-        </section>
-        <!--<canvas id="monthly-summary-chart">-->
-          <div id="chart-container"></div>
-        <!--</canvas>-->
 
     <div id="reminder-message">
       <p id="reminder-text"></p>
@@ -73,6 +66,11 @@
     <div id="goal-achieved-message" style="display: none;">
       <p>Congratulations! You have achieved your goal.</p>
     </div>      
+
+    <section id="monthly-summary">
+            <h2>Expenditure Summary</h2>
+        </section>
+    <div id="chart-container"></div>
 
     <section id="bill-reminders">
       <h2 id="bill-reminders-heading">Bill Reminders</h2>

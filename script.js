@@ -43,6 +43,22 @@ function displayTransactions() {
   transactionsSection.style.display = transactions.length ? "block" : "none";
 
   // Update progress
+  fetch("http://127.0.0.1:5000/api/monthly-summary", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(transactions), // Replace with your transaction data
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Display the monthly summary data
+    //   print(data);
+    console.log(data);
+      displayMonthlySummary(data);
+    
+    })
+    .catch((error) => console.error(error));
   updateProgress();
 }
 
@@ -196,25 +212,6 @@ function addTransaction(e) {
   transactions.push(newTransaction);
   updateBalance();
   displayTransactions();
-  
-  fetch("http://127.0.0.1:5000/api/monthly-summary", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(transactions), // Replace with your transaction data
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // Display the monthly summary data
-    //   print(data);
-    console.log(data);
-      displayMonthlySummary(data);
-    
-    })
-    .catch((error) => console.error(error));
-
-
   // Make API request to categorise the transactions
 
   // Clear input fields
@@ -264,13 +261,15 @@ function displayMonthlySummary(data) {
   //);
   console.log(categorizedTransactionsHtml)
 //   categorizedTransactionsDiv.innerHTML = categorizedTransactionsHtml;
-  console.log("hello2")
 
   // Display monthly summary as a bar chart
   const monthlySummary = data.monthly_summary;
   const labels = monthlySummary.map((item) => `${item.Category}/${item.amount}`);
   const amounts = monthlySummary.map((item) => item.amount);
-
+  const monthlySummarySection = document.getElementById("monthly-summary");
+  monthlySummarySection.style.display = transactions.length ? "block" : "none";
+  const chartContainer = document.getElementById("chart-container");
+  chartContainer.style.display = transactions.length ? "block" : "none";
   createMonthlySummaryChart(labels, amounts);
 }
 

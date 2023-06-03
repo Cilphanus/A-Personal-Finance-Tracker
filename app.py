@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify
 import pandas as pd
 from flask_cors import CORS
 
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app)
 
 def categorize_transactions(df):
@@ -46,6 +46,7 @@ def categorize_transactions(df):
     }
 
     df['Category'] = df['description'].map(description_mapping)
+    df['amount']=df['amount'].astype(int)
     print(df)
     categorized_transactions = df.groupby('Category')['amount'].sum().reset_index()
     print(categorized_transactions)

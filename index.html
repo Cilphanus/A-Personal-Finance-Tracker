@@ -1,99 +1,99 @@
-import json
-from flask import Flask, render_template, request, jsonify
-import pandas as pd
-from flask_cors import CORS
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personal Finance Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-app = Flask(_name_)
-CORS(app)
+     <link rel="stylesheet" type="text/css" href="styles2.css">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>PERSONAL FINANCE TRACKER</h1>
+        <section id="monthly-summary">
+            <h2>Monthly Summary</h2>
+        </section>
+        <!--<canvas id="monthly-summary-chart">-->
+          <div id="chart-container"></div>
+        <!--</canvas>-->
 
-def categorize_transactions(df):
-    # Create a mapping of transaction descriptions to categories
-    description_mapping = {
-        "groceries": "Food",
-        "restaurant": "Food",
-        "coffee": "Food",
-        "supermarket": "Food",
-        "clothes": "Clothing",
-        "shoes": "Clothing",
-        "accessories": "Clothing",
-        "utilities": "Utilities",
-        "electricity bill": "Utilities",
-        "water bill": "Utilities",
-        "gas bill": "Utilities",
-        "rent": "Housing",
-        "mortgage": "Housing",
-        "insurance": "Insurance",
-        "healthcare": "Insurance",
-        "travel": "Travel",
-        "transportation": "Transportation",
-        "gasoline": "Transportation",
-        "car maintenance": "Transportation",
-        "entertainment": "Entertainment",
-        "movies": "Entertainment",
-        "concert": "Entertainment",
-        "subscriptions": "Subscriptions",
-        "internet": "Subscriptions",
-        "streaming services": "Subscriptions",
-        "gym": "Fitness",
-        "sports": "Fitness",
-        "education": "Education",
-        "books": "Education",
-        "tuition": "Education",
-        "donations": "Charity",
-        "gifts": "Gifts",
-        "shopping": "Shopping",
-        "miscellaneous": "Miscellaneous"
-    }
+    <div id="reminder-message">
+      <p id="reminder-text"></p>
+      <button id="reminder-close-button">&times;</button>
+    </div>    
 
-    df['Category'] = df['description'].map(description_mapping)
-    print(df)
-    categorized_transactions = df.groupby('Category')['amount'].sum().reset_index()
-    print(categorized_transactions)
-    categorized_transactions = categorized_transactions.to_dict(orient='records')
-    return categorized_transactions
+    <form id="transaction-form">
+      <label for="type">Type:</label>
+      <select id="type">
+        <option disabled selected value="">Select type</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
 
-def calculate_monthly_summary(df):
-    # Extract the month and year from the transaction date
-    df['date'] = pd.to_datetime(df['date'])
-    df['Month'] = df['date'].dt.month
-    df['Year'] = df['date'].dt.year
+      <label for="description">Description:</label>
+      <input type="text" id="description" required placeholder="Enter description">
 
-    # Group the transactions by month, year, and category, and calculate the total amount
-    monthly_summary = df.groupby(['Category'])['amount'].sum().reset_index()
-    print(monthly_summary)
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" required placeholder="Enter amount">
 
-    # Convert the monthly summary to a list of dictionaries
-    monthly_summary = monthly_summary.to_dict(orient='records')
+      <label for="date">Date:</label>
+      <input type="date" id="date" required>
 
-    return monthly_summary
+      <button type="submit">Add Transaction</button>
+    </form>
 
-# Endpoint for training and making predictions
-@app.route('/')
-def home():
-    return render_template('index.html')
+    <div id="transactions">
+      <h2>Transactions</h2>
+      <ul id="transaction-list"></ul>
+    </div>
 
-@app.route('/api/monthly-summary', methods=['POST'])
-def generate_monthly_summary():
-    print("hello")
-    data = request.json
+    <div id="balance">
+      <h2>Current Balance</h2>
+      <p id="balance-amount">0</p>
+    </div>
+
+    <div id="progress-tracker">
+      <h2>Progress Tracker</h2>
+      <form id="goal-form">
+        <label for="goal-amount">Set Goal Amount:</label>
+        <input type="number" id="goal-amount" step="0.01" placeholder="Enter goal amount" required>
+        <button type="submit">Set Goal</button>
+      </form>
+      <div id="goal-container" style="display: none;">
+        <p>Goal Amount: <span id="goal-display"></span></p>
+      </div>
+      <div id="progress-container">
+        <div class="progress-bar">
+          <div id="progress"></div>
+        </div>
+        <span id="progress-percentage" class="progress-percentage"></span>
+      </div>
+    </div>    
+    <div id="goal-achieved-message" style="display: none;">
+      <p>Congratulations! You have achieved your goal.</p>
+    </div>      
+
+    <section id="bill-reminders">
+      <h2 id="bill-reminders-heading">Bill Reminders</h2>
+      <ul id="bill-reminder-list"></ul>
+    </section>
+
     
-    # Load the dataset
-    df = pd.DataFrame(data)
-    print(data)
-    print(df)
-
-    categorized_transactions = categorize_transactions(df)
-    monthly_summary = calculate_monthly_summary(df)  # Pass df instead of categorized_transactions
+    <section id="bill-reminder-form">
+      <h3>Add Bill Reminder</h3>
+      <form id="bill-reminder-form">
+        <label for="bill-name">Bill Name:</label>
+        <input type="text" id="bill-name" required>
     
-    summary_data = {
-        'categorized_transactions': categorized_transactions,
-        'monthly_summary': monthly_summary
-    }
-    print(summary_data)
+        <label for="due-date">Due Date:</label>
+        <input type="date" id="due-date" required>
     
-    # Return the categorized transactions and monthly summary as a JSON response
-    return jsonify(summary_data)
+        <button type="submit">Add Reminder</button>
+      </form>
+    </section>
+    
 
-
-if _name_ == '_main_':
-    app.run(debug=True)
+  <script src="script.js"></script>
+</body>
+</html>

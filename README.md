@@ -22,8 +22,14 @@ The Personal Finance Tracker is a web application that helps you track your inco
 
    ```bash
    git clone https://github.com/AashiGoel/Personal-Finance-Tracker.git
-2. Open the `index.html` file in your web browser.
-3. Start tracking your personal finances!
+2. Install the requirements in your system by typing the following in your command prompt:
+
+   ```
+   pip install -r requirements.txt
+   ```
+3. Run app.py.
+4. Open the `index.html` file in your web browser.
+5. Start tracking your personal finances!
 
 ## Usage
 - Add Transactions:
@@ -45,9 +51,11 @@ The Personal Finance Tracker is a web application that helps you track your inco
   - The balance amount is displayed at the top.
   - The progress bar shows your progress towards the set financial goal.
   - The list of transactions is displayed, showing the type, description, amount, and date.
-  - Bill reminders are shown in a separate section if any are added.
+- Keep a track of expenditures:
+  - An expenditure summary shows the amount spent per category by the user.
+  - The category is automatically detected using an api.
 
 ## Screenshots
-![Personal Finance Tracker](https://github.com/AashiGoel/Personal-Finance-Tracker/assets/97473701/9546200d-5709-4c95-8baa-de938ba52f94)
-![Progress Tracker](https://github.com/AashiGoel/Personal-Finance-Tracker/assets/97473701/3bec84bb-565e-46b3-9c8d-6d0c3c0a3ef6)
-![Bill Reminders](https://github.com/AashiGoel/Personal-Finance-Tracker/assets/97473701/032ad020-e068-491b-a8ea-9488d914c68b)
+![Screenshot 1](https://github.com/AashiGoel/Personal-Finance-Tracker/assets/97473701/498118bb-a974-4efb-82f7-2ac0e7493de1)
+![Screenshot 2](https://github.com/AashiGoel/Personal-Finance-Tracker/assets/97473701/1f3bf901-c13b-443a-8957-7edd18794d80)
+![Screenshot 3](https://github.com/AashiGoel/Personal-Finance-Tracker/assets/97473701/3f351610-72ec-43e8-ab73-2fd8a025b85b)

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <pe="password" id="password" required>
+
+        <button type="suform id="signup-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+
+        <label for="password">Password:</label>
+        <input tybmit">Sign Up</button>
+    </form>
+
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get input values
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Here you can add your backend logic to handle user sign-up
+            // For example, you can send an AJAX request to your backend server
+
+            // Dummy example: Check if username is "admin" and password is "password"
+            if (username === "Solace" && password === "solace.me123") {
+                alert("Sign up successful! You are now logged in.");
+                // Redirect to the main page or dashboard
+                window.location.href = "index.html";
+            } else {
+                alert("Sign up failed! Invalid username or password.");
+            }
+        });
+    </script>
+</body>
+</html>
